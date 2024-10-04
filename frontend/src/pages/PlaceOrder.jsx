@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import  { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
@@ -85,7 +85,7 @@ const PlaceOrder = () => {
             switch (method) {
 
                 // API Calls for COD
-                case 'cod':
+                case 'cod':{
                     const response = await axios.post(backendUrl + '/api/order/place',orderData,{headers:{token}})
                     if (response.data.success) {
                         setCartItems({})
@@ -94,8 +94,9 @@ const PlaceOrder = () => {
                         toast.error(response.data.message)
                     }
                     break;
+                }
 
-                case 'stripe':
+                case 'stripe': {
                     const responseStripe = await axios.post(backendUrl + '/api/order/stripe',orderData,{headers:{token}})
                     if (responseStripe.data.success) {
                         const {session_url} = responseStripe.data
@@ -104,8 +105,9 @@ const PlaceOrder = () => {
                         toast.error(responseStripe.data.message)
                     }
                     break;
+                }
 
-                case 'razorpay':
+                case 'razorpay':{
 
                     const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, {headers:{token}})
                     if (responseRazorpay.data.success) {
@@ -113,6 +115,7 @@ const PlaceOrder = () => {
                     }
 
                     break;
+                }
 
                 default:
                     break;
